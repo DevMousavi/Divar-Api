@@ -32,7 +32,7 @@ const swaggerConfig = (app: Express): void => {
                 },
             ],
         },
-        apis: ['src/modules/**/swagger/*.ts'],
+        apis: ['src/modules/**/*.ts'],
     });
 
     app.use('/api-document', swaggerUi.serve, swaggerUi.setup(swaggerDocumentation));

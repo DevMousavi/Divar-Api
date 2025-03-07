@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import mainRoutes from './src/main.routes';
 import { sequelize } from './src/config/sequelize.config';
 import swaggerConfig from './src/config/swagger.config';
+import errorHandler from './src/utils/errorHandler.utils';
 
 const main = async (): Promise<void> => {
     try {
@@ -14,6 +15,8 @@ const main = async (): Promise<void> => {
 
         app.use(mainRoutes);
         swaggerConfig(app);
+        errorHandler.notFoundRoute(app);
+        errorHandler.allError(app);
 
         const PORT: number = 3000;
         app.listen(PORT, () => {
