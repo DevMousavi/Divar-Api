@@ -23,6 +23,26 @@ class CategoryRepository {
         });
         return category.toJSON();
     }
+    public async list(pageIndex: number = 1, itemsPerPage: number = 10): Promise<{ categories: CategoryModelType[]; total: number }> {
+        try {
+            const offset = (pageIndex - 1) * itemsPerPage;
+            const { count, rows } = await CategoryModel.findAndCountAll({
+                order: [['createdAt', 'DESC']],
+                offset: offset,
+                limit: itemsPerPage,
+            });
+
+            return {
+                categories: rows.map((category) => category.toJSON()),
+                total: count,
+            };
+        } catch (error) {
+            return {
+                categories: [],
+                total: 0,
+            };
+        }
+    }
 }
 
 export default new CategoryRepository();

@@ -31,6 +31,33 @@ class CategoryService {
             };
         }
     }
+    public list = async (
+        pageIndex: number = 1,
+        itemsPerPage: number = 10
+    ): Promise<{
+        message: string;
+        statusCode: ServerOperationEnum;
+        data: {
+            categories: CategoryModelType[];
+            total: number;
+            currentPage: number;
+            totalPages: number;
+        };
+    }> => {
+        const { categories, total } = await categoryRepository.list(pageIndex, itemsPerPage);
+        const totalPages = Math.ceil(total / itemsPerPage);
+
+        return {
+            message: 'دسته بندی ها با موفقیت بازیابی شدند',
+            statusCode: ServerOperationEnum.SUCCESS_CODE,
+            data: {
+                categories,
+                total,
+                currentPage: pageIndex,
+                totalPages,
+            },
+        };
+    };
 }
 
 export default new CategoryService();

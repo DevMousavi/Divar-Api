@@ -70,3 +70,31 @@
  *       200:
  *         description: Category created successfully
  */
+/**
+ * @swagger
+ * /category/list:
+ *   get:
+ *     summary: Get a paginated list of categories
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: pageIndex
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: itemsPerPage
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved categories
+ */
